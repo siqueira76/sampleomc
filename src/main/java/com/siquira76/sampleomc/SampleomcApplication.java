@@ -13,6 +13,7 @@ import com.siquira76.sampleomc.domain.Cidade;
 import com.siquira76.sampleomc.domain.Cliente;
 import com.siquira76.sampleomc.domain.Endereco;
 import com.siquira76.sampleomc.domain.Estado;
+import com.siquira76.sampleomc.domain.ItemPedido;
 import com.siquira76.sampleomc.domain.Pagamento;
 import com.siquira76.sampleomc.domain.PagamentoComBoleto;
 import com.siquira76.sampleomc.domain.PagamentoComCartao;
@@ -25,6 +26,7 @@ import com.siquira76.sampleomc.repositories.CidadeRepository;
 import com.siquira76.sampleomc.repositories.ClienteRepository;
 import com.siquira76.sampleomc.repositories.EnderecoRepository;
 import com.siquira76.sampleomc.repositories.EstadoRepository;
+import com.siquira76.sampleomc.repositories.ItemPedidoRepository;
 import com.siquira76.sampleomc.repositories.PagamentoRepository;
 import com.siquira76.sampleomc.repositories.PedidoRepository;
 import com.siquira76.sampleomc.repositories.ProdutoRepository;
@@ -59,6 +61,10 @@ public class SampleomcApplication implements CommandLineRunner {
 	
 	@Autowired
 	PagamentoRepository pagamentoRepository;
+	
+	@Autowired
+	ItemPedidoRepository itemPedidoRepository;
+	
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -121,6 +127,19 @@ public class SampleomcApplication implements CommandLineRunner {
 		
 		pedidoRepository.saveAll(Arrays.asList(ped1, ped2));
 		pagamentoRepository.saveAll(Arrays.asList(pagto1, pagto2));
+		
+		ItemPedido ip1 = new ItemPedido(ped1, p1, 0.00, 1, 2000.00);
+		ItemPedido ip2 = new ItemPedido(ped1, p3, 0.00, 2, 80.00);
+		ItemPedido ip3 = new ItemPedido(ped1, p2, 100.00, 1, 800.00);
+		
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p1.getItens().addAll(Arrays.asList(ip1));
+		p1.getItens().addAll(Arrays.asList(ip1));
+		
+		itemPedidoRepository.saveAll(Arrays.asList(ip1, ip2, ip3));
+		
+		
+		
 		
 		
 	}
