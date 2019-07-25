@@ -1,5 +1,6 @@
 package com.siquira76.sampleomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,10 @@ public class CategoriaService {
 		} catch (DataIntegrityViolationException e) {
 			throw new DataIntegrityExeption("Não é possivel excluir uma categoria que poossui Produto");
 		}
+	}
+
+	public List<Categoria> findAll() {
+		return repo.findAll();
 	}
 	
 }
