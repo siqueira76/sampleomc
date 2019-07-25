@@ -11,6 +11,7 @@ import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.siquira76.sampleomc.domain.Categoria;
+import com.siquira76.sampleomc.dto.CategoriaDTO;
 import com.siquira76.sampleomc.repositories.CategoriaRepository;
 import com.siquira76.sampleomc.services.exceptions.DataIntegrityExeption;
 import com.siquira76.sampleomc.services.exceptions.ObjectNotFondException;
@@ -53,6 +54,10 @@ public class CategoriaService {
 	public Page<Categoria> findPage(Integer page, Integer linesPerPage, String orderBy, String direction){
 		PageRequest pageRequest = PageRequest.of(page, linesPerPage, Direction.valueOf(direction), orderBy);
 		return repo.findAll(pageRequest);
+	}
+	
+	public Categoria fromDTO(CategoriaDTO objDTO) {
+		return new Categoria(objDTO.getId(), objDTO.getNome());
 	}
 	
 }
