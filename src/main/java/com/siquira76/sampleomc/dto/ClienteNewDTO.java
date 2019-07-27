@@ -2,6 +2,9 @@ package com.siquira76.sampleomc.dto;
 
 import java.io.Serializable;
 
+import com.siquira76.sampleomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
