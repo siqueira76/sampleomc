@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.siquira76.sampleomc.domain.Categoria;
@@ -34,31 +35,34 @@ import com.siquira76.sampleomc.repositories.ProdutoRepository;
 public class DBService {
 	
 	@Autowired
-	CategoriaRepository categoriaRepository;
+	private BCryptPasswordEncoder pe;
 	
 	@Autowired
-	ProdutoRepository produtoRepository;
+	private CategoriaRepository categoriaRepository;
 	
 	@Autowired
-	EstadoRepository estadoRepository;
+	private ProdutoRepository produtoRepository;
+	
+	@Autowired
+	private EstadoRepository estadoRepository;
 	
 	@Autowired 
-	CidadeRepository cidadeRepository;
+	private CidadeRepository cidadeRepository;
 	
 	@Autowired
-	ClienteRepository clienteRepository;
+	private ClienteRepository clienteRepository;
 	
 	@Autowired
-	EnderecoRepository enderecoReposutory;
+	private EnderecoRepository enderecoReposutory;
 	
 	@Autowired
-	PedidoRepository pedidoRepository;
+	private PedidoRepository pedidoRepository;
 	
 	@Autowired
-	PagamentoRepository pagamentoRepository;
+	private PagamentoRepository pagamentoRepository;
 	
 	@Autowired
-	ItemPedidoRepository itemPedidoRepository;
+	private ItemPedidoRepository itemPedidoRepository;
 	
 	public void instatiateTestDatabase() throws ParseException {
 		
@@ -125,7 +129,7 @@ public class DBService {
 		estadoRepository.saveAll(Arrays.asList(est1, est2));
 		cidadeRepository.saveAll(Arrays.asList(c1, c2, c3));
 		
-		Cliente cli1 = new Cliente(null, "Maria silva", "josecarlos.siqueira76@gmail.com", "09809809832", TipoCliente.PESSOAFISICA);
+		Cliente cli1 = new Cliente(null, "Maria silva", "josecarlos.siqueira76@gmail.com", "09809809832", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("981275982", "874238789"));
 		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apt 203", "Jardim", "09876098", cli1, c1);

@@ -2,29 +2,34 @@ package com.siquira76.sampleomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+
 import com.siquira76.sampleomc.services.validation.ClienteInsert;
 
 @ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	private String nome;
 	private String email;
 	private String cpfOuCnpj;
 	private Integer tipo;
-	
+
+	@NotEmpty
+	private String senha;
+
 	private String logradouro;
 	private String numero;
 	private String complemento;
 	private String bairro;
 	private String cep;
-	
+
 	private String telefone1;
 	private String telefone2;
 	private String telefone3;
-	
+
 	private Integer cidadeId;
-	
+
 	public ClienteNewDTO() {
 	}
 
@@ -58,6 +63,14 @@ public class ClienteNewDTO implements Serializable {
 
 	public void setTipo(Integer tipo) {
 		this.tipo = tipo;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 
 	public String getLogradouro() {
