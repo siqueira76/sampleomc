@@ -20,6 +20,7 @@ import com.siquira76.sampleomc.domain.PagamentoComCartao;
 import com.siquira76.sampleomc.domain.Pedido;
 import com.siquira76.sampleomc.domain.Produto;
 import com.siquira76.sampleomc.domain.enums.EstadoPagamento;
+import com.siquira76.sampleomc.domain.enums.Perfil;
 import com.siquira76.sampleomc.domain.enums.TipoCliente;
 import com.siquira76.sampleomc.repositories.CategoriaRepository;
 import com.siquira76.sampleomc.repositories.CidadeRepository;
@@ -132,13 +133,19 @@ public class DBService {
 		Cliente cli1 = new Cliente(null, "Maria silva", "josecarlos.siqueira76@gmail.com", "09809809832", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("981275982", "874238789"));
 		
+		Cliente cli2 = new Cliente(null, "Josy Siqueira", "jociane.siqueira@gmail.com", "66133650095", TipoCliente.PESSOAFISICA, pe.encode("123"));
+		cli1.getTelefones().addAll(Arrays.asList("9812759123", "234238789"));
+		cli2.addPerfil(Perfil.ADMIN);
+		
 		Endereco e1 = new Endereco(null, "Rua Flores", "300", "Apt 203", "Jardim", "09876098", cli1, c1);
 		Endereco e2 = new Endereco(null, "Av Matos", "105", "Sala 800", "Centro", "098786091", cli1, c2);
+		Endereco e3 = new Endereco(null, "Rua MArilia", "555", null, "Centro", "098786091", cli2, c2);
 		
 		cli1.getEnderecos().addAll(Arrays.asList(e1, e2));
+		cli1.getEnderecos().addAll(Arrays.asList(e3));
 		
-		clienteRepository.saveAll(Arrays.asList(cli1));
-		enderecoReposutory.saveAll(Arrays.asList(e1, e2));
+		clienteRepository.saveAll(Arrays.asList(cli1, cli2));
+		enderecoReposutory.saveAll(Arrays.asList(e1, e2, e3));
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		
