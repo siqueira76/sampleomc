@@ -15,11 +15,14 @@ import org.springframework.transaction.annotation.Transactional;
 import com.siquira76.sampleomc.domain.Cidade;
 import com.siquira76.sampleomc.domain.Cliente;
 import com.siquira76.sampleomc.domain.Endereco;
+import com.siquira76.sampleomc.domain.enums.Perfil;
 import com.siquira76.sampleomc.domain.enums.TipoCliente;
 import com.siquira76.sampleomc.dto.ClienteDTO;
 import com.siquira76.sampleomc.dto.ClienteNewDTO;
 import com.siquira76.sampleomc.repositories.ClienteRepository;
 import com.siquira76.sampleomc.repositories.EnderecoRepository;
+import com.siquira76.sampleomc.security.UserSS;
+import com.siquira76.sampleomc.services.exceptions.AuthorizationExeption;
 import com.siquira76.sampleomc.services.exceptions.DataIntegrityExeption;
 import com.siquira76.sampleomc.services.exceptions.ObjectNotFondException;
 
@@ -36,6 +39,12 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 	
 	public Cliente buscar(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if (user == null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationExeption("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(()-> new ObjectNotFondException("Objeto não emcontrado id: " 
 		+ id + ", Tipo: " + Cliente.class.getName()));
