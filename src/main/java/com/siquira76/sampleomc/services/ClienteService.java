@@ -1,6 +1,5 @@
 package com.siquira76.sampleomc.services;
 
-import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -42,8 +41,8 @@ public class ClienteService {
 	@Autowired
 	private EnderecoRepository enderecoRepository;
 	
-//	@Autowired
-//	S3Service s3Service;
+	@Autowired
+	S3Service s3Service;
 	
 //	@Autowired
 //	ImageService imageService;
@@ -74,11 +73,11 @@ public class ClienteService {
 		return obj;
 	}
 	
-//	public Cliente update(Cliente obj) {
-//		Cliente newObj = buscar(obj.getId());
-//		updateData(newObj, obj);
-//		return repo.save(newObj);
-//	}
+	public Cliente update(Cliente obj) {
+		Cliente newObj = buscar(obj.getId());
+		updateData(newObj, obj);
+		return repo.save(newObj);
+	}
 
 	public void delete(Integer id) {
 		buscar(id);
@@ -118,12 +117,12 @@ public class ClienteService {
 	}
 	
 
-//	private void updateData(Cliente newObj, Cliente obj) {
-//		newObj.setNome(obj.getNome());
-//		newObj.setEmail(obj.getEmail());
-//	}
-//	
-//	public URI uploadProfilePicture(MultipartFile multipartfile) {
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+	}
+	
+	public URI uploadProfilePicture(MultipartFile multipartfile) {
 //		UserSS user = UserService.authenticated();
 //		
 //		if (user == null) {
@@ -135,8 +134,8 @@ public class ClienteService {
 //		jpgImage = imageService.resize(jpgImage, size);
 //		
 //		String fileName = prefix + user.getId() + ".jpg";
-//		
-//		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
-//	}
+		
+		return s3Service.uploadFile(multipartfile);
+	}
 	
 }
