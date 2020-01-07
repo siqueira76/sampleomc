@@ -51,13 +51,13 @@ public class ClienteResource {
 		return ResponseEntity.created(uri).build(); // Retorna 201
 	}
 	
-	@PutMapping(value = "/{id}")
-	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDTO,@PathVariable Integer id){
-		Cliente obj = service.fromDTO(objDTO);
-		obj.setId(id);
-		obj = service.update(obj);
-		return ResponseEntity.noContent().build();
-	}
+//	@PutMapping(value = "/{id}")
+//	public ResponseEntity<Void> update(@Valid @RequestBody ClienteDTO objDTO,@PathVariable Integer id){
+//		Cliente obj = service.fromDTO(objDTO);
+//		obj.setId(id);
+//		obj = service.update(obj);
+//		return ResponseEntity.noContent().build();
+//	}
 	
 	@PreAuthorize("hasAnyRole('ADMIN')")
 	@DeleteMapping(value = "/{id}")
@@ -87,10 +87,10 @@ public class ClienteResource {
 		return ResponseEntity.ok().body(listDTO);
 	}
 	
-	@PostMapping(value = "/picture")
-	public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name = "file")MultipartFile file){
-		URI uri = service.uploadProfilePicture(file);
-		return ResponseEntity.created(uri).build(); // Retorna 201
-	}
+//	@PostMapping(value = "/picture")
+//	public ResponseEntity<Void> uploadProfilePicture(@RequestParam(name = "file")MultipartFile file){
+//		URI uri = service.uploadProfilePicture(file);
+//		return ResponseEntity.created(uri).build(); // Retorna 201
+//	}
 
 }
