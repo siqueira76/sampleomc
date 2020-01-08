@@ -123,19 +123,19 @@ public class ClienteService {
 	}
 	
 	public URI uploadProfilePicture(MultipartFile multipartfile) {
-//		UserSS user = UserService.authenticated();
-//		
-//		if (user == null) {
-//			throw new AuthorizationExeption("Acesso negado");
-//		}
-//		
-//		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartfile);
-//		jpgImage = imageService.cropSquare(jpgImage);
-//		jpgImage = imageService.resize(jpgImage, size);
-//		
-//		String fileName = prefix + user.getId() + ".jpg";
+		UserSS user = UserService.authenticated();
+
+		if (user == null) {
+			throw new AuthorizationExeption("Acesso negado");
+		}
+
+		URI uri = s3Service.uploadFile(multipartfile);
+		Cliente cli = repo.getOne(user.getId());
+		cli.setImageUrl(uri.toString());
+		repo.save(cli);
+
+		return uri;
 		
-		return s3Service.uploadFile(multipartfile);
 	}
 	
 }
