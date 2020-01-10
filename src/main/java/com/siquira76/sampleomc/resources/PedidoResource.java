@@ -1,7 +1,6 @@
 package com.siquira76.sampleomc.resources;
 
 import java.net.URI;
-import java.util.List;
 
 import javax.validation.Valid;
 
@@ -18,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.siquira76.sampleomc.domain.Pedido;
-import com.siquira76.sampleomc.domain.Produto;
-import com.siquira76.sampleomc.dto.ProdutoDTO;
-import com.siquira76.sampleomc.resources.utils.URL;
 import com.siquira76.sampleomc.services.PedidoService;
 
 @RestController

@@ -1,5 +1,6 @@
 package com.siquira76.sampleomc.services;
 
+import java.awt.image.BufferedImage;
 import java.net.URI;
 import java.util.List;
 import java.util.Optional;
@@ -44,8 +45,8 @@ public class ClienteService {
 	@Autowired
 	S3Service s3Service;
 	
-//	@Autowired
-//	ImageService imageService;
+	@Autowired
+	ImageService imageService;
 	
 	@Value("${img.prefix.client.profile}")
 	String prefix;
@@ -115,27 +116,22 @@ public class ClienteService {
 		}
 		return cli;
 	}
-	
 
 	private void updateData(Cliente newObj, Cliente obj) {
 		newObj.setNome(obj.getNome());
 		newObj.setEmail(obj.getEmail());
 	}
 	
-	public URI uploadProfilePicture(MultipartFile multipartfile) {
+	public URI uploadProfilePicture(MultipartFile multipartFile) {
 		UserSS user = UserService.authenticated();
 
 		if (user == null) {
 			throw new AuthorizationExeption("Acesso negado");
 		}
-
-		URI uri = s3Service.uploadFile(multipartfile);
-		Cliente cli = repo.getOne(user.getId());
-		cli.setImageUrl(uri.toString());
-		repo.save(cli);
-
-		return uri;
 		
+		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		String fileName = prefix + user.getId() + ".jpg";
+		return s3Service.uploadFile(imageService.getInputStream(jpgImage, "jpg"), fileName, "image");
 	}
 	
 }

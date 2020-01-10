@@ -77,7 +77,13 @@
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-java-sdk</artifactId>
-			<version>LATEST</version>
+			<version>1.11.612</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+			<version>4.5.9</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
 		<dependency>
@@ -85,7 +91,7 @@
 			<artifactId>commons-io</artifactId>
 			<version>LATEST</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.imgscalr</groupId>
 			<artifactId>imgscalr-lib</artifactId>
